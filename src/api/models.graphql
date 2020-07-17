@@ -1,0 +1,13 @@
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  todos: [Todo]
+}
+
+type Todo {
+  id: ID!
+  title: String!
+  description: String!
+  creator: User!
+}

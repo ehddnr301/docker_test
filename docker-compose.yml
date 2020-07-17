@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "${MONGO_PORT}:27017"
+    volumes:
+      - ./mongofolder/data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME:root
+      - MONGO_INITDB_ROOT_PASSWORD:rootPassXXX
+    # env_file:
+    #   - .env
+    command: mongod
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: todo-docker
+    container_name: todo-docker
+    env_file:
+      - .env
+    ports:
+      - "4000:5000"
+    depends_on:
+      - mongodb
